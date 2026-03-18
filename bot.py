@@ -1,13 +1,20 @@
 import requests
 import time
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
+# =========================
+# 🔹 CONFIG TELEGRAM
+# =========================
 TOKEN = "8398040301:AAFPIPrqxcHiju4g5_qYR9r51GAIOSQGpiY"
 CHAT_ID = "6971298078"
 
+# =========================
+# 🔹 URLS
+# =========================
 urls = [
 "https://prod6.seace.gob.pe/buscador-publico/contrataciones",
 "https://www.ima.org.pe/adquisiciones-bienes-servicios-v3/s---.html",
-"https://prod6.seace.gob.pe/buscador-publico/contrataciones",
 "https://cotizaciones.copesco.gob.pe/adquisicion-de-bienes-y-o-servicios-plan-copesco/",
 "https://www.sutran.gob.pe/contrataciones-de-bienes-y-servicios/",
 "https://cms.pvn.gob.pe:10443/PortalProceso/Forms/frmContratacionMenor8UIT_Ex",
@@ -18,8 +25,6 @@ urls = [
 "https://www.autodema.gob.pe/peims-autodema-promueve-transparencia-en-contrataciones-de-bienes-y-servicios/",
 "https://apps.sangaban.com.pe/sgcotizaciones/cotizaciones-vigentes",
 "https://www.senamhi.gob.pe/main.php?dp=puno&p=contrataciones-8uit",
-"https://prod6.seace.gob.pe/buscador-publico/contrataciones",
-"https://www.gob.pe/busquedas?contenido[]=publicacion",
 
 # MADRE DE DIOS
 "https://www.gob.pe/munitambopata",
@@ -84,6 +89,9 @@ urls = [
 "https://www.peru.gob.pe"
 ]
 
+# =========================
+# 🔹 PALABRAS CLAVE
+# =========================
 palabras = [
 "topografia",
 "levantamiento topografico",
@@ -91,16 +99,37 @@ palabras = [
 "catastro",
 "georreferenciacion",
 "puntos geodesicos",
-"colocacion de puntos"
+"colocación de puntos"
 ]
 
-enviados = set()
-
+# =========================
+# 🔹 TELEGRAM
+# =========================
 def enviar(texto):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     requests.post(url, data={"chat_id": CHAT_ID, "text": texto})
 
-def buscar():
+# =========================
+# 🔹 SERVIDOR FAKE (RENDER)
+# =========================
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot activo")
+
+def run_server():
+    server = HTTPServer(("0.0.0.0", 10000), Handler)
+    server.serve_forever()
+
+threading.Thread(target=run_server).start()
+
+# =========================
+# 🔹 BOT PRINCIPAL
+# =========================
+while True:
+    print("🔍 Buscando cotizaciones...")
+
     for url in urls:
         try:
             r = requests.get(url, timeout=10)
@@ -108,20 +137,10 @@ def buscar():
 
             for palabra in palabras:
                 if palabra in contenido:
-                    
-                    clave = f"{palabra}-{url}"
-
-                    if clave not in enviados:
-                        mensaje = f"🚨 NUEVA POSIBLE COTIZACIÓN\n\n🔎 {palabra}\n🌐 {url}"
-                        enviar(mensaje)
-                        enviados.add(clave)
+                    enviar(f"⚠ Posible cotizacion encontrada\n{palabra}\n{url}")
 
         except:
             pass
 
-# 🔁 LOOP AUTOMÁTICO
-while True:
-    print("Buscando cotizaciones...")
-    buscar()
-    
-    time.sleep(28800)  # ⏰ cada 8 horas
+    print("⏳ Esperando 8 horas...")
+    time.sleep(28800)  # 8 horas
