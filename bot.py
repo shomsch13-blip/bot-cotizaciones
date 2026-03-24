@@ -12,7 +12,12 @@ CHAT_ID = "6971298078"
 urls = [
     "https://prod6.seace.gob.pe/buscador-publico/contrataciones",
     "https://www.ima.org.pe/adquisiciones-bienes-servicios-v3/s---.html",
-    "https://cotizaciones.copesco.gob.pe/adquisicion-de-bienes-y-o-servicios-plan-copesco/"
+    "https://cotizaciones.copesco.gob.pe/adquisicion-de-bienes-y-o-servicios-plan-copesco/",
+    "https://aplicacionespnsr.vivienda.gob.pe/spsPNSR/consulta",
+    "https://www.midagri.gob.pe/portal/contrataciones-menores-a-8-uit",
+    "https://cms.pvn.gob.pe:10443/PortalProceso/Forms/frmContratacionMenor8UIT_Ex",
+    "https://apps.proviasdes.gob.pe/pvdsgc/publicacionweb?Page_No=88",
+    "https://8uit.sunarp.gob.pe/portal/zona-registral/zona-registral-n-x-sede-cusco"
 ]
 
 # =========================
