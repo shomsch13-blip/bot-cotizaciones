@@ -28,7 +28,13 @@ palabras = [
     "levantamiento topografico",
     "geodesico",
     "catastro",
-    "georreferenciacion"
+    "georreferenciacion",
+    "Puntos de Control"
+    "Orden C"
+    "Dibujo cad",
+    "Cadista",
+    "Fotogrametria",
+    "Ortofoto"
 ]
 
 # =========================
