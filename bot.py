@@ -29,8 +29,8 @@ palabras = [
     "geodesico",
     "catastro",
     "georreferenciacion",
-    "Puntos de Control"
-    "Orden C"
+    "Puntos de Control",
+    "Orden C",
     "Dibujo cad",
     "Cadista",
     "Fotogrametria",
