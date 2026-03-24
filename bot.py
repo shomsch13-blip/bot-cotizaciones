@@ -30,11 +30,11 @@ palabras = [
     "catastro",
     "georreferenciacion",
     "Puntos de Control",
-    "Orden C",
-    "Dibujo cad",
-    "Cadista",
-    "Fotogrametria",
-    "Ortofoto"
+    "orden c",
+    "dibujo cad",
+    "cadista",
+    "fotogrametria",
+    "ortofoto"
 ]
 
 # =========================
